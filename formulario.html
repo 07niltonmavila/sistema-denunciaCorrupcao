@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SDAC - Sistema de Denúncia</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<style>  
+.hidden { display: none; }
+header.bg-success { background: linear-gradient(135deg, #002d62, #002d62); box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+form { background:#f5f5f5; padding:2rem; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.1); font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+label.form-label { font-weight:600; color:#2c3e50; }
+button.btn-success { background: linear-gradient(45deg,#002d62,#002d62); border:none; font-weight:600; padding:0.6rem 1.5rem; border-radius:50px; box-shadow:0 4px 15px rgba(21,94,46,0.4); transition: background 0.3s ease, box-shadow 0.3s ease; }
+button.btn-success:hover { background: linear-gradient(45deg,#115e2e,#1f7c3c); box-shadow:0 6px 25px rgba(21,94,46,0.7); }
+#confirmacao { border-radius:12px; font-weight:600; box-shadow:0 3px 12px rgba(40,167,69,0.5); background-color:#d4edda; color:#155724; display:none; padding:10px; }
+.bg-azul-escuro { background-color:#002d62 !important; }
+footer { background-color:#002d62; color:white; text-align:center; padding:1rem 0; margin-top:4rem; }
+</style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-azul-escuro mb-4">
+<div class="container">
+<a class="navbar-brand" href="#">SDAC - Moçambique</a>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav ms-auto">
+<li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+<li class="nav-item"><a class="nav-link active" href="#">Denúncia</a></li>
+<li class="nav-item"><a class="nav-link" href="consultarDenuncia.php">Estado da Denúncia</a></li>
+<li class="nav-item"><a class="nav-link" href="ajuda.html">Ajuda</a></li>
+<li class="nav-item"><a class="nav-link" href="sobre.html">Sobre</a></li>
+</ul>
+</div>
+</div>
+</nav>
+
+<header class="bg-success text-white text-center py-4 mb-4">
+<div class="container">
+<h3>Formulário de Denúncia</h3>
+</div>
+</header>
+
+<div class="container mb-5">
+<form id="denunciaForm" method="POST" action="processar_denuncia.php" enctype="multipart/form-data">
+
+  <!-- Anonimato -->
+  <div class="mb-3">
+    <label class="form-label">Pretende manter o anonimato?</label><br />
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="anonimo" id="anonimoSim" value="sim" checked />
+      <label class="form-check-label" for="anonimoSim">Sim</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="anonimo" id="anonimoNao" value="nao" />
+      <label class="form-check-label" for="anonimoNao">Não</label>
+    </div>
+  </div>
+
+  <!-- Tipo denunciante -->
+  <div id="tipoDenuncianteWrapper" class="hidden mb-3">
+    <label class="form-label">Você é:</label><br />
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="tipoDenunciante" id="cidadao" value="cidadao" checked />
+      <label class="form-check-label" for="cidadao">Cidadão</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="tipoDenunciante" id="funcionario" value="funcionario" />
+      <label class="form-check-label" for="funcionario">Funcionário</label>
+    </div>
+  </div>
+
+  <!-- Dados pessoais -->
+  <div id="dadosIdentificacao" class="hidden">
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome</label>
+      <input type="text" class="form-control" id="nome" name="nome" />
+    </div>
+    <div class="mb-3">
+      <label for="telefone" class="form-label">Telefone</label>
+      <input type="text" class="form-control" id="telefone" name="telefone" />
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" name="email" />
+    </div>
+  </div>
+
+  <div id="dadosFuncionario" class="hidden mb-3">
+    <div class="mb-3">
+      <label for="cargo" class="form-label">Cargo</label>
+      <input type="text" class="form-control" id="cargo" name="cargo" />
+    </div>
+    <div class="mb-3">
+      <label for="departamento" class="form-label">Departamento</label>
+      <input type="text" class="form-control" id="departamento" name="departamento" />
+    </div>
+  </div>
+
+  <!-- Denúncia -->
+  <div class="mb-3">
+    <label for="assunto" class="form-label">Assunto</label>
+    <input type="text" class="form-control" id="assunto" name="assunto" required />
+  </div>
+  <div class="mb-3">
+    <label for="local" class="form-label">Local do Acontecimento</label>
+    <input type="text" class="form-control" id="local" name="local" required />
+  </div>
+  <div class="mb-3">
+    <label for="data" class="form-label">Data do Acontecimento</label>
+    <input type="date" class="form-control" id="data" name="data" required />
+  </div>
+  <div class="mb-3">
+    <label for="hora" class="form-label">Hora do Acontecimento</label>
+    <input type="time" class="form-control" id="hora" name="hora" />
+  </div>
+  <div class="mb-3">
+    <label for="descricao" class="form-label">Descrição Detalhada</label>
+    <textarea class="form-control" id="descricao" name="descricao" rows="4" required></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="anexo" class="form-label">Anexar Ficheiros (opcional)</label>
+    <input type="file" class="form-control" id="anexo" name="anexo" />
+  </div>
+<!-- Política de Não Retaliação -->
+  <div class="alert alert-info mt-3">
+    <h5>Política de Não Retaliação</h5>
+    <p>
+      Ao enviar esta denúncia, você está protegido contra qualquer tipo de retaliação.
+      Nenhum funcionário ou colaborador poderá prejudicá-lo em função da denúncia feita.
+      Garantimos confidencialidade e anonimato quando solicitado.
+    </p>
+  </div>
+
+  <button type="submit" class="btn btn-success">Enviar Denúncia</button>
+</form>
+
+<div id="confirmacao"></div>
+</div>
+
+<footer>
+© 2025 SDAC - Todos os direitos reservados.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const anonimoSim = document.getElementById("anonimoSim");
+const anonimoNao = document.getElementById("anonimoNao");
+const dadosIdentificacao = document.getElementById("dadosIdentificacao");
+const tipoDenuncianteWrapper = document.getElementById("tipoDenuncianteWrapper");
+const cidadaoRadio = document.getElementById("cidadao");
+const funcionarioRadio = document.getElementById("funcionario");
+const dadosFuncionario = document.getElementById("dadosFuncionario");
+const form = document.getElementById("denunciaForm");
+const confirmacao = document.getElementById("confirmacao");
+
+function toggleCampos() {
+  if (anonimoNao.checked) {
+    dadosIdentificacao.classList.remove("hidden");
+    tipoDenuncianteWrapper.classList.remove("hidden");
+    document.getElementById("nome").required = true;
+    document.getElementById("telefone").required = true;
+    document.getElementById("email").required = true;
+  } else {
+    dadosIdentificacao.classList.add("hidden");
+    tipoDenuncianteWrapper.classList.add("hidden");
+    dadosFuncionario.classList.add("hidden");
+    document.getElementById("nome").required = false;
+    document.getElementById("telefone").required = false;
+    document.getElementById("email").required = false;
+    document.getElementById("cargo").required = false;
+    document.getElementById("departamento").required = false;
+  }
+}
+
+function toggleFuncionario() {
+  if (anonimoNao.checked && funcionarioRadio.checked) {
+    dadosFuncionario.classList.remove("hidden");
+    document.getElementById("cargo").required = true;
+    document.getElementById("departamento").required = true;
+  } else {
+    dadosFuncionario.classList.add("hidden");
+    document.getElementById("cargo").required = false;
+    document.getElementById("departamento").required = false;
+  }
+}
+
+anonimoSim.addEventListener("change", toggleCampos);
+anonimoNao.addEventListener("change", toggleCampos);
+cidadaoRadio.addEventListener("change", toggleFuncionario);
+funcionarioRadio.addEventListener("change", toggleFuncionario);
+
+toggleCampos();
+toggleFuncionario();
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+  const formData = new FormData(form);
+  fetch("processar_denuncia.php", { method: "POST", body: formData })
+    .then(response => response.text())
+    .then(data => {
+      confirmacao.style.display = "block";
+      confirmacao.innerHTML = data;
+      form.reset();
+      toggleCampos();
+      toggleFuncionario();
+    })
+    .catch(error => {
+      confirmacao.style.display = "block";
+      confirmacao.innerHTML = "Erro ao enviar denúncia!";
+      console.error(error);
+    });
+});
+</script>
+</body>
+</html>
+
+

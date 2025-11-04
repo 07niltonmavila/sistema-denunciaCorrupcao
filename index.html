@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema de Denúncia - Sector Público</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e9f0f5, #ffffff);
+      color: #333;
+    }
+    header {
+      background-color: #002d62;
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+    .intro-text {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+    .main-actions {
+      margin-top: 60px;
+    }
+    .action-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 30px;
+      transition: transform 0.3s;
+    }
+    .action-card:hover {
+      transform: scale(1.02);
+    }
+    .action-icon {
+      font-size: 3rem;
+      color: #007bff;
+    }
+    .action-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      color: #888;
+      font-size: 0.9rem;
+      padding-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Cabeçalho -->
+  <header>
+    <div class="container">
+      <h1><i class="bi bi-shield-check"></i> SDAC - Moçambique</h1>
+      <p class="intro-text">Contribua para a justiça e a transparência. Faça sua denúncia de forma anónima e segura.</p>
+    </div>
+  </header>
+
+  <!-- Ações principais -->
+  <div class="container main-actions">
+    <div class="row g-4 justify-content-center">
+
+      <!-- Nova Denúncia -->
+      <div class="col-md-4">
+        <div class="action-card text-center">
+          <i class="bi bi-pencil-square action-icon"></i>
+          <div class="action-title">Nova Denúncia</div>
+          <p>Preencha o formulário para relatar um caso de forma segura e confidencial.</p>
+          <a href="formulario.html" class="btn btn-primary"><i class="bi bi-arrow-right-circle"></i> Ir para o Formulário</a>
+        </div>
+      </div>
+
+      <!-- Acompanhar Denúncia -->
+      <div class="col-md-4">
+        <div class="action-card text-center">
+          <i class="bi bi-search action-icon"></i>
+          <div class="action-title">Acompanhar Denúncia</div>
+          <p>Consulte o andamento da sua denúncia com o número de protocolo.</p>
+          <a href="consultarDenuncia.php" class="btn btn-outline-primary"><i class="bi bi-search-heart"></i> Acompanhar</a>
+        </div>
+      </div>
+
+      <!-- Ajuda -->
+      <div class="col-md-4">
+        <div class="action-card text-center">
+          <i class="bi bi-question-circle action-icon"></i>
+          <div class="action-title">Ajuda - Assistente Virtual</div>
+          <p>Dúvidas frequentes sobre denúncias, protocolo, sigilo, etc.</p>
+          <a href="ajuda.html" class="btn btn-outline-secondary"><i class="bi bi-info-circle-fill"></i> Ver Ajuda</a>
+        </div>
+      </div>
+
+      <!-- Sobre -->
+      <div class="col-md-4">
+        <div class="action-card text-center">
+          <i class="bi bi-journal-text action-icon"></i>
+          <div class="action-title">Sobre o Sistema</div>
+          <p>Saiba mais sobre como funciona, a confidencialidade e a segurança do sistema.</p>
+          <a href="sobre.html" class="btn btn-outline-dark"><i class="bi bi-journal-text"></i> Ler mais</a>
+        </div>
+      </div>
+
+      <!-- Fale Conosco (abre modal com formulário + dados) -->
+      <div class="col-md-4">
+        <div class="action-card text-center">
+          <i class="bi bi-envelope-at action-icon"></i>
+          <div class="action-title">Fale Conosco</div>
+          <p>Envie uma mensagem direta ou acesse nossos canais oficiais.</p>
+          <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalContato">
+            <i class="bi bi-chat-dots-fill"></i> Entrar em Contato
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal de Contato -->
+  <div class="modal fade" id="modalContato" tabindex="-1" aria-labelledby="modalContatoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="modalContatoLabel">Contato com a Instituição</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulário de mensagem -->
+          <form>
+            <div class="mb-3">
+              <label for="nome" class="form-label">Nome:</label>
+              <input type="text" class="form-control" id="nome" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">E-mail:</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="mensagem" class="form-label">Mensagem:</label>
+              <textarea class="form-control" id="mensagem" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+          </form>
+
+          <hr>
+
+          <!-- Dados públicos da instituição -->
+          <div class="mt-3">
+            <p><strong>Email institucional:</strong> contato@sdac.gov.mz</p>
+            <p><strong>Telefone (SMS/WhatsApp):</strong> +258 84 123 4567</p>
+            <p><strong>Endereço:</strong> Av. Eduardo Mondlane, Maputo</p>
+            <p><strong>Horário de atendimento:</strong> Segunda a Sexta, 8h‑17h</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <footer class="mt-5">
+    <div class="container">
+      &copy; 2025 Sistema de Denúncias de Actos de Corrupção - Desenvolvido por Nilton Mavila.
+    </div>
+  </footer>
+
+  <!-- Scripts do Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
